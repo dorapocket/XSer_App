@@ -81,7 +81,7 @@ class _StartScreenState extends State<StartScreen> {
               ),
               SizedBox(height: 50,),
               Text(
-                "李国宇老师",
+                "xxx老师",
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
