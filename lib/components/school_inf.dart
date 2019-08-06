@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:xser/components/articleReader.dart';
 
 class SchoolInf extends StatefulWidget {
   SchoolInf({Key key}) : super(key: key);
@@ -40,7 +41,26 @@ class _SchoolInfState extends State<SchoolInf> {
     );
   }
 
+Widget generateListTile(String title,String subtitle,{String id}){
+   return ListTile(
+              title: new Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              onTap: (){
+                		Navigator.of(context).push(
+			MaterialPageRoute(
+				builder:(BuildContext context){
+					return ArticleReader(title:title,subtitle:subtitle,id:id);     //路由到新页面 传值时候写在参数里
+				}
+			)
+		);
 
+              },
+              subtitle: Text(subtitle),
+            );
+}
 Widget schoolpublic(){
   return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
@@ -65,23 +85,9 @@ Widget schoolpublic(){
               ),
             ),
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '20190621东部考务会议点名情况',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-8-3 / 教务处"),
-            ),
+            generateListTile("20190621东部考务会议点名情况", "2019-8-3 / 教务处",id:'22222'),
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '2019年 6月17日早上升旗仪式（教工大会）点名汇总表（东部校区）',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-8-2 / 教务处"),
-            ),
+            generateListTile("2019年 6月17日早上升旗仪式（教工大会）点名汇总表（东部校区）", "2019-8-2 / 教务处",id:'22223'),
           ],
         ),
       ),
@@ -164,29 +170,17 @@ Widget schoolpublic(){
               ),
             ),
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '感知名校文化    领略科技之光—',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-8-3 / 教务处"),
-            ),
+        
+              generateListTile("感知名校文化    领略科技之光—", "2019-8-3 / 教务处",id:'2235324'),
+    
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '2022届暑期辅导安排',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-8-2 / 教务处"),
-            ),
+            generateListTile("2022届暑期辅导安排", "2019-8-3 / 教务处",id:'2234554'),
+          
           ],
         ),
       ),
     );
   }
-
   Widget notifications() {
     return Container(
       padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
@@ -199,6 +193,7 @@ Widget schoolpublic(){
           // card只能有一个widget，但这个widget内容可以包含其他的widget
           children: [
             new ListTile(
+             // contentPadding: EdgeInsets.fromLTRB(15,0,5,0),
               title: new Text('通知公告',
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               //subtitle: new Text('子标题'),
@@ -209,23 +204,9 @@ Widget schoolpublic(){
               ),
             ),
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '2022届暑期辅导安排',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-8-2 / 教务处"),
-            ),
+            generateListTile("2022届暑期辅导安排", "2019-8-3 / 教务处",id:'2234554'),  
             new Divider(),
-            new ListTile(
-              title: new Text(
-                '2022届数理类特色班选拔和竞赛辅导通知',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text("2019-7-28 / 教务处"),
-            ),
+            generateListTile("2022届数理类特色班选拔和竞赛辅导通知", "2019-7-28 / 教务处",id:'2222354'),
           ],
         ),
       ),

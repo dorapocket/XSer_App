@@ -22,6 +22,7 @@ dependencies:
   fluro: ^1.5.1
   flutter_swiper : ^1.1.6
   circular_bottom_navigation: ^1.0.0
+  flutter_svg: ^0.14.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +61,20 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Product Sans
+      fonts: 
+        - asset: fonts/Product Sans Regular.ttf
+        - asset: fonts/Product Sans Italic.ttf
+          style: italic
+        - asset: fonts/Product Sans Bold.ttf
+          weight: 700
+        - asset: fonts/Product Sans Bold Italic.ttf
+          style: italic
+          weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: fonts/MontserratAlternates-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
