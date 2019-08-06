@@ -14,7 +14,7 @@ A cross-platform App created by two 2018 graduates from Ningbo XiaoShi High Scho
 
 ##### 屏幕截图 ScreenShots
 
-![](screenshots\main.jpg)
+![main](screenshots\main.jpg)
 
 ![myxs](screenshots\myxs.jpg)
 
