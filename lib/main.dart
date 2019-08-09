@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:xser/const/const.dart';
 import 'package:xser/components/bottomBar.dart';
-import 'package:xser/routers/application.dart';
+import 'package:xser/routers/routes.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -21,9 +21,9 @@ class _MyAppState extends State<MyApp> {
       ),*/
       home:StartScreen(),
       debugShowCheckedModeBanner: false,
-      routes: <String,WidgetBuilder>{
-        '/home':(BuildContext context) => new BottomBar()
-      },
+    onGenerateRoute: myonGenerateRoute,
+    initialRoute: "/",
+    routes: routes,
       //onGenerateRoute: Application.router.generator,
     );
   }

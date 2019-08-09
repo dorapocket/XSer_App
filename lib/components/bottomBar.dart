@@ -4,6 +4,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import '../const/const.dart';
 import 'school_inf.dart';
 import 'myxs.dart';
+import 'myFeatures.dart';
 class BottomBar extends StatefulWidget {
   BottomBar({Key key}) : super(key: key);
 
@@ -36,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
     cwidth=size.width;
     return Scaffold(
       appBar: AppBar(
-        title:Image.network("https://www.nbxiaoshi.net/images/indexfiles/images/logo.png"),
+        title:Image.asset("images/xsxh.png",scale: 25,),
         centerTitle: true,
         backgroundColor: C.XS_BLUE,
         actions:<Widget>[IconButton(icon: Icon(Icons.notifications_active),onPressed: (){},)],
@@ -61,7 +62,7 @@ class _BottomBarState extends State<BottomBar> {
         tabpages = MyXS();
         break;
       case 2:
-        tabpages = MyXS();
+        tabpages = MyFeatures();
         break;
     }
 

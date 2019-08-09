@@ -18,6 +18,8 @@ A cross-platform App created by two 2018 graduates from Ningbo XiaoShi High Scho
 
 ![myxs](myxs.jpg)
 
+![features](features.jpg)
+
 ##### 贡献者(排名不分先后) Contributor
 
 [dorapocket](https://github.com/dorapocket)  Dart/Flutter
@@ -72,6 +74,8 @@ The required dependencies will automatically installed
 - Crawl the homepage of the school website to get the latest article information
 - “我的效实”界面:登录、天气、一卡通余额、DD90、未读信息
 - "MyXS" interface : login, weather, card balance, DD90, unread information
+- “功能”界面：查成绩、查书、通讯录
+- "Features" interface : Score, Search Books, Address List for graduate
 - Developing...
 
 **如果你有更好的点子，欢迎提交Issues向我们反映！**
