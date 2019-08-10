@@ -37,10 +37,10 @@ class _BottomBarState extends State<BottomBar> {
     cwidth=size.width;
     return Scaffold(
       appBar: AppBar(
-        title:Image.asset("images/xsxh.png",scale: 25,),
+        title:Image.asset("images/xsxh.png",scale: 10,),
         centerTitle: true,
         backgroundColor: C.XS_BLUE,
-        actions:<Widget>[IconButton(icon: Icon(Icons.notifications_active),onPressed: (){},)],
+        /*actions:<Widget>[IconButton(icon: Icon(Icons.notifications_active),onPressed: (){},)],*/
       ),
       body: Stack(
         children: <Widget>[

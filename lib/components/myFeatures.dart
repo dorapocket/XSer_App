@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'dart:convert';
+import 'package:fluro/fluro.dart';
+import 'package:xser/routers/routes.dart';
+
 class MyFeatures extends StatefulWidget {
   MyFeatures({Key key}) : super(key: key);
 
@@ -7,102 +11,108 @@ class MyFeatures extends StatefulWidget {
 }
 
 class _MyFeaturesState extends State<MyFeatures> {
-  List<Map> featureInfo=[
+  List<Map> featureInfo = [
     {
-      "icon":Icons.build,
-      "blockName":"常用功能",
-      "color":Colors.blue,
-      "item":[
+      "icon": Icons.build,
+      "blockName": "常用功能",
+      "color": Colors.blue,
+      "item": [
         {
-          "itemIcon":Icons.score,
-          "itemName":"成绩查询",
-          "routeName":"/go",
+          "itemIcon": Icons.score,
+          "itemName": "成绩查询",
+          "routeName": "/go",
         },
         {
-          "itemIcon":Icons.exit_to_app,
-          "itemName":"出入校",
-          "routeName":"/",
+          "itemIcon": Icons.exit_to_app,
+          "itemName": "出入校",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.notifications,
-          "itemName":"缴费查询",
-          "routeName":"/",
+          "itemIcon": Icons.notifications,
+          "itemName": "缴费查询",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.payment,
-          "itemName":"饭卡充值",
-          "routeName":"/",
+          "itemIcon": Icons.payment,
+          "itemName": "饭卡充值",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.notification_important,
-          "itemName":"选课通知",
-          "routeName":"/",
+          "itemIcon": Icons.notification_important,
+          "itemName": "选课通知",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.school,
-          "itemName":"成绩分析",
-          "routeName":"/",
+          "itemIcon": Icons.school,
+          "itemName": "成绩分析",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.web_asset,
-          "itemName":"课本资源",
-          "routeName":"/",
+          "itemIcon": Icons.web_asset,
+          "itemName": "课本资源",
+          "routeName": "/",
         },
       ]
     },
     {
-      "icon":Icons.school,
-      "blockName":"毕业生",
-      "color":Colors.blue,
-      "item":[
+      "icon": Icons.school,
+      "blockName": "毕业生",
+      "color": Colors.blue,
+      "item": [
         {
-          "itemIcon":Icons.library_books,
-          "itemName":"通讯录",
-          "routeName":"/",
+          "itemIcon": Icons.library_books,
+          "itemName": "通讯录",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.home,
-          "itemName":"班级主页",
-          "routeName":"/",
+          "itemIcon": Icons.home,
+          "itemName": "班级主页",
+          "routeName": "/",
         },
       ]
     },
     {
-      "icon":Icons.apps,
-      "blockName":"设置",
-      "color":Colors.blue,
-      "item":[
+      "icon": Icons.apps,
+      "blockName": "设置",
+      "color": Colors.blue,
+      "item": [
         {
-          "itemIcon":Icons.update,
-          "itemName":"软件更新",
-          "routeName":"/",
+          "itemIcon": Icons.update,
+          "itemName": "软件更新",
+          "routeName": "/",
         },
         {
-          "itemIcon":Icons.done,
-          "itemName":"关于",
-          "routeName":"/",
+          "itemIcon": Icons.done,
+          "itemName": "关于",
+          "routeName": "/",
         },
       ]
     }
   ];
   @override
   Widget build(BuildContext context) {
-    List<Widget> _block=[];
-    for(int i=0;i<featureInfo.length;i++){
-      _block.add(itemBlock(context, featureInfo[i]["blockName"], featureInfo[i]["icon"], featureInfo[i]["color"],featureInfo[i]["item"]));
+    List<Widget> _block = [];
+    for (int i = 0; i < featureInfo.length; i++) {
+      _block.add(itemBlock(
+          context,
+          featureInfo[i]["blockName"],
+          featureInfo[i]["icon"],
+          featureInfo[i]["color"],
+          featureInfo[i]["item"]));
     }
     return Container(
-      
       color: Colors.grey[200],
-       child:SingleChildScrollView(
-         child: Column(
-           children:_block,
-         ),
-       ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: _block,
+        ),
+      ),
     );
   }
-  Widget itemBlock(BuildContext context,String title,IconData icon,Color color,List item){
-    var screenWidth=MediaQuery.of(context).size.width;
+
+  Widget itemBlock(BuildContext context, String title, IconData icon,
+      Color color, List item) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -112,7 +122,7 @@ class _MyFeaturesState extends State<MyFeatures> {
             width: screenWidth - 20,
             margin: const EdgeInsets.only(top: 30.0, bottom: 0.0),
             decoration: BoxDecoration(
-               boxShadow: [
+              boxShadow: [
                 BoxShadow(
                   offset: Offset(10, 10),
                   //color: Colors.black,
@@ -125,10 +135,9 @@ class _MyFeaturesState extends State<MyFeatures> {
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-
               children: <Widget>[
                 Container(
-                 width: screenWidth - 20,
+                  width: screenWidth - 20,
                   padding: const EdgeInsets.only(left: 65.0, top: 3.0),
                   height: 30.0,
                   child: Text(
@@ -140,21 +149,21 @@ class _MyFeaturesState extends State<MyFeatures> {
                   ),
                 ),
                 Container(
-      padding: const EdgeInsets.only(bottom: 10.0, top: 5.0),
-      /*decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(bottom: 10.0, top: 5.0),
+                  /*decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/paimaiLogo.png'),
           alignment: Alignment.bottomRight
         ),
       ),*/
-      child: Container(
-        height: 80*(1+((item.length)/4).floor()).toDouble(),
-        padding: EdgeInsets.only(left:10,right:10),
-        child:Column(
-          children:_buildWidgetContainer(context, item),
-        ),
-      ),
-    ),
+                  child: Container(
+                    height: 80 * (1 + ((item.length) / 4).floor()).toDouble(),
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      children: _buildWidgetContainer(context, item),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -189,46 +198,66 @@ class _MyFeaturesState extends State<MyFeatures> {
       ),
     );
   }
-  List<Widget> _buildWidgetContainer(BuildContext context,List item) {
-    List<Widget> _features=[];
-          List<Widget> _rows=[];
-          int a=0;
-    for(int i=0;i<item.length;i++){
-      _rows.add(featureTab(context,item[i]["itemIcon"],item[i]["itemName"],item[i]["routeName"]));
+
+  List<Widget> _buildWidgetContainer(BuildContext context, List item) {
+    List<Widget> _features = [];
+    List<Widget> _rows = [];
+    int a = 0;
+    for (int i = 0; i < item.length; i++) {
+      _rows.add(featureTab(context, item[i]["itemIcon"], item[i]["itemName"],
+          item[i]["routeName"]));
       a++;
-      if(a==4){
-        a=0;
-        _features.add(Row(children: _rows,));
-        _rows=[];
+      if (a == 4) {
+        a = 0;
+        _features.add(Row(
+          children: _rows,
+        ));
+        _rows = [];
       }
     }
-    if(a!=0){
-       _features.add(Row(children: _rows,));
-        _rows=[];
+    if (a != 0) {
+      _features.add(Row(
+        children: _rows,
+      ));
+      _rows = [];
     }
     /*if (this._firstChildList.length == 0) {
       return Container();
     }*/
     return _features;
   }
-  Widget featureTab(BuildContext context,IconData icon,String title,String route){
-    return  GestureDetector(
-              onTap: (){print(title+" is tapped!");
-                Navigator.pushNamed(context, "/go",arguments:{"inf":"hhhhhh"});
-              },
-                          child: Container(
-                height: 80,
-                width: (MediaQuery.of(context).size.width-40)/4,
-                child:Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(icon,size: 30,),
-                      Text(title,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w300),),
-                    ],
-                  ),
-                ),
+
+  Widget featureTab(
+      BuildContext context, IconData icon, String title, String route) {
+    var arg = {"inf": "hhhhhh"};
+    return GestureDetector(
+      onTap: () {
+        print(title + " is tapped!");
+        var json = Uri.encodeQueryComponent("haha");
+        var j2 = Uri.encodeQueryComponent("我是lgy");
+        Routes.router.navigateTo(
+            context, '${Routes.searchScore}?message=$json&maya=$j2', //跳转路径
+            transition: TransitionType.fadeIn);
+      },
+      child: Container(
+        height: 80,
+        width: (MediaQuery.of(context).size.width - 40) / 4,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                icon,
+                size: 30,
               ),
-            );
+              Text(
+                title,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

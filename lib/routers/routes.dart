@@ -1,27 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 import 'package:xser/components/searchScore.dart';
 import 'package:xser/components/bottomBar.dart';
-final routes={
-  '/home':(context)=>BottomBar(),
-  '/go':(context,{arguments})=>SearchScore(arguments:arguments),
 
-};
+class Routes {
+  static Router router;
+  static String homePage = '/home';
+  static String searchScore = '/go';
 
-Route<dynamic> myonGenerateRoute(RouteSettings settings){
-		final String name=settings.name;
-		final Function pageContentBuilder=routes[name];
-		if(pageContentBuilder!=null){
-			if(settings.arguments!=null){
-				final Route route=MaterialPageRoute(
-					builder:(context)=>
-						pageContentBuilder(context,arguments:settings.arguments)
-				);
-				return route;
-			}else{
-				final Route route=MaterialPageRoute(
-					builder:(context)=>pageContentBuilder(context)
-				);
-				return route;
-			}
-		}
+  static void configureRoutes(Router router) {
+    router.define(homePage,
+        handler: Handler(handlerFunc: (context, params) => BottomBar()));
+    router.define(searchScore, handler: Handler(handlerFunc: (context, params) {
+      var message = params['message']?.first; //取出传参
+      var maya = params['maya']?.first; //取出传参
+      return SearchScore(message, maya);
+    }));
+    Routes.router = router;
+  }
 }
