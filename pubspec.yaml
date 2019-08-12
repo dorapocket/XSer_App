@@ -25,6 +25,8 @@ dependencies:
   flutter_svg: ^0.14.0
   badges: ^1.1.0
   unicorndial: "^1.1.5"
+  flutter_html: ^0.10.4
+  direct_select_flutter: ^1.0.4
 
 
   # The following adds the Cupertino Icons font to your application.

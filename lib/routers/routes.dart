@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:xser/components/searchScore.dart';
 import 'package:xser/components/bottomBar.dart';
+import '../components/searchScoretest.dart';
 
 class Routes {
   static Router router;
