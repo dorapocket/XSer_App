@@ -5,11 +5,6 @@ class C{
 }
 class S{
   static const testdata='''
-   """
-  <tbody><tr>
-											<td id="fontzoom" valign="top"><br>
-
-<p></p>
 <p class="MsoNormal" align="center" style="text-align:center"><b><span style="font-size:18.0pt;mso-bidi-font-size:22.0pt;font-family:&quot;微软雅黑&quot;,sans-serif">感知名校文化<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;</span></span>领略科技之光<span lang="EN-US"><o:p></o:p></span></span></b></p>
 <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:22.0pt;font-family:楷体"><span style="mso-spacerun:yes">&nbsp;</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14pt;">&nbsp;&nbsp;&nbsp; </span></span></span></b><b><span style="font-size:14.0pt;mso-bidi-font-size:22.0pt;font-family:楷体"><span style="font-size: 14pt;">——</span><span lang="EN-US" style="font-size: 14pt;">2019</span><span style="font-size: 14pt;">效实学子七月上海研学活动五日纪实</span><span lang="EN-US"><o:p></o:p></span></span></b></p>
 <p class="MsoNormal" align="center" style="text-align:center"><b style="font-size: 9pt;"><span style="font-size:12.0pt;mso-bidi-font-size:22.0pt;font-family:黑体"><span style="font-size: 14pt;"><br>
@@ -144,8 +139,6 @@ class S{
 <div align="right">
 	  
 												</div>
-											</td>
-										</tr>
-									</tbody>
+
   ''';
 }

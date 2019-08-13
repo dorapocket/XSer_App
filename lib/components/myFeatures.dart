@@ -229,14 +229,12 @@ class _MyFeaturesState extends State<MyFeatures> {
 
   Widget featureTab(
       BuildContext context, IconData icon, String title, String route) {
-    var arg = {"inf": "hhhhhh"};
     return GestureDetector(
       onTap: () {
         print(title + " is tapped!");
-        var json = Uri.encodeQueryComponent("haha");
-        var j2 = Uri.encodeQueryComponent("我是lgy");
+        var json = Uri.encodeQueryComponent("0");
         Routes.router.navigateTo(
-            context, '${Routes.searchScore}?message=$json&maya=$j2', //跳转路径
+            context, '${Routes.searchScore}?step=$json', //跳转路径
             transition: TransitionType.fadeIn);
       },
       child: Container(
