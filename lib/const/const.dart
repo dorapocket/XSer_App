@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-class C{
-  static const Color XS_BLUE=Color.fromARGB(255, 45, 88, 149);
-  static const Color LIGHT_BLUE=Color.fromARGB(255, 52, 152, 219);
+
+class C {
+  static const Color XS_BLUE = Color.fromARGB(255, 45, 88, 149);
+  static const Color LIGHT_BLUE = Color.fromARGB(255, 52, 152, 219);
 }
-class S{
-  static const testdata='''
+
+class S {
+  static const testdata = '''
 <p class="MsoNormal" align="center" style="text-align:center"><b><span style="font-size:18.0pt;mso-bidi-font-size:22.0pt;font-family:&quot;微软雅黑&quot;,sans-serif">感知名校文化<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;</span></span>领略科技之光<span lang="EN-US"><o:p></o:p></span></span></b></p>
 <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:22.0pt;font-family:楷体"><span style="mso-spacerun:yes">&nbsp;</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14pt;">&nbsp;&nbsp;&nbsp; </span></span></span></b><b><span style="font-size:14.0pt;mso-bidi-font-size:22.0pt;font-family:楷体"><span style="font-size: 14pt;">——</span><span lang="EN-US" style="font-size: 14pt;">2019</span><span style="font-size: 14pt;">效实学子七月上海研学活动五日纪实</span><span lang="EN-US"><o:p></o:p></span></span></b></p>
 <p class="MsoNormal" align="center" style="text-align:center"><b style="font-size: 9pt;"><span style="font-size:12.0pt;mso-bidi-font-size:22.0pt;font-family:黑体"><span style="font-size: 14pt;"><br>
@@ -141,4 +143,227 @@ class S{
 												</div>
 
   ''';
+  static const List dd90data = [
+    {
+      "grade": "高三",
+      "subject": "政治",
+      "title": "政治刷题推荐",
+      "teacher": "庄春艳",
+      "content": """庄老师：您好
+我觉得我现在急需要刷一点政治题，不然小题不太会找重点，大题没有什么思路。背书的时候不是很能理解，我想靠题目帮我理解一下，做到不怎么知道的再回去背。您觉得现在的情况是更适合刷综合卷还是专题卷呢？有没有什么好的政治刷题推荐呢
+因为政治书不是改了很多次嘛，所以不知道哪些是比较新的
+ """,
+      "from": "复习背书",
+      "reply": 0,
+      "click": 8,
+    },
+    {
+      "grade": "高二",
+      "subject": "数学",
+      "title": "解析几何中的内切圆",
+      "teacher": "黄琪锋",
+      "content": """解析几何试卷P17 第7题（2）
+三角形内切圆圆心应该怎么用代数表示？对于两条动直线的角平分线确实难求""",
+      "from": "解析几何试卷P17 第7题（2）",
+      "reply": 1,
+      "click": 89,
+    },
+    {
+      "grade": "高二",
+      "subject": "生物",
+      "title": "生物的变异与进化",
+      "teacher": "任姬",
+      "content":
+          """P57第六题：按网上资料解释是由于艾滋病病毒（HIV）是逆转录病毒，然后由它的RNA逆转录为DNA并整合到宿主细胞中，再由宿主细胞进行转录翻译合成艾滋病病毒所需的蛋白质外壳。
+但我觉得选项D中的基因传递方式应当是普遍的RNA病毒的感染原理。例如烟草花叶病毒等，不知此种理解是否正确？
+同样的，DNA病毒（如噬菌体）是否符合选项C中的基因传递方式？
+P58第18题：
+A选项在这本书里已经出现多次，虽然它的遗传病的定义和浙科版定义有出入，但是很多处都认为是对的
+B选项“一个基因”仿佛也没有太大的错误。
+P59第21题：
+C选项“含一个染色体组的个体是单倍体”是指只含一个染色体组的个体是不可能由受精卵发育而来，只可能由配子发育的吗？
+但是在课本P80也有关于一倍体的定义：“只含有一个染色体组的细胞或体细胞中含一个染色体组的个体”。如果含一个染色体组的个体只可能有配子发育而来，那么就没有“一倍体”的说法。
+另外，按照课本定义，一倍体、二倍体等整倍体的分类体系和单倍体是不冲突的。也就是说，小麦的花药离体培养产生的植株既可以叫单倍体，又可以叫三倍体（有三个染色体组）。
+这里不附图片了。实在非常抱歉，很难通过其他方式联系上任老师。如果打字麻烦，可以试一试搜狗输入法的语音输入。""",
+      "from": "暑假作业P57-59",
+      "reply": 3,
+      "click": 83,
+    },
+    {
+      "grade": "高一",
+      "subject": "英语",
+      "title": "附件是哪个？",
+      "teacher": "曹军",
+      "content": "曹老师您好，我想问一下，典范英语的阅读笔记是只有倒数第二页的表格吗？前面英文版的阅读笔记算吗？",
+      "from": "高一英语暑假作业p1第3点",
+      "reply": 1,
+      "click": 71,
+    },
+    {
+      "grade": "高三",
+      "subject": "语文",
+      "title": "暑假作业",
+      "teacher": "徐淑芳",
+      "content": "老师您好，助词，副词，连词的区别在哪里",
+      "from": "文言词用法",
+      "reply": 1,
+      "click": 72,
+    },
+    {
+      "grade": "高三",
+      "subject": "英语",
+      "title": "暑假作业",
+      "teacher": "李丹丹",
+      "content": "aim to 和 aim at 有什么区别吗",
+      "from": "步步高第七页第二大题的第五小题。",
+      "reply": 0,
+      "click": 71,
+    },
+    {
+      "grade": "高二",
+      "subject": "英语",
+      "title": "暑假作业中的几个词组",
+      "teacher": "陈月飞",
+      "content": """《精彩假期》
+P4 四、完成句子 6、   答案应当有误
+P10 五、课文填空 6、   修饰those的定语从句是否有些问题，就是这个空格是否应当填“who trapped”,全句为those who trapped under the ruins，就是此处who是否一定要写出？（作业中也有those that/which但是没有写出的）
+P19三、单词填空 9、    compare to/with语义不同，似答案有误
+P19四、完成句子3、 long before 和before long有何区别？仿佛从中文上结束都是很久，很早，只是此处用否定形式翻译为不久
+                  具体句子在p19 完成句子3、和p22三、单词填空6、
+P39三、单词填空7、   crowded in表示“涌上心头”，全句变为crowded in on the little girl，不通，疑词组有误
+p.s. 英语仿佛还是DD90打字容易，但此处硬是要选什么模块颇为麻烦""",
+      "from": "暑假作业知识积累填空部分P4,10,19,39",
+      "reply": 1,
+      "click": 95,
+    },
+    {
+      "grade": "高二",
+      "subject": "生物",
+      "title": "细胞的呼吸作用及其生产应用",
+      "teacher": "任姬",
+      "content": """共有以下三个问题（图片附在最后）：暑假作业P24 第16题  P27 第5题  P36  第20题
+P24 第16题 
+经我计算，选项AD无误，选项C有问题
+甲图中a,b,c,d四处消耗的葡萄糖份数依次为5个，3个，3/5个，7/6个，则d浓度消耗葡萄糖量最少，储藏应选择d
+另外，乙图中转折点C具体含义是什么？是表示此时仅发生需氧呼吸还是需氧厌氧兼有的平衡点（若为平衡点，二者的比例是多少）？此时二氧化碳释放最少，是否为有机物消耗最少的浓度？即，是否为储藏粮食水果的最合适氧气浓度？
+而且网上的解释认为释放二氧化碳最少是就是有机物消耗最少时，即储藏粮食水果的合适氧气浓度，但是每一个葡萄糖分解在需氧时产生6个二氧化碳，厌氧时产生2个。我们可以发现找到一个点使需氧呼吸完全替代厌氧呼吸，这个点虽然释放的二氧化碳仅为厌氧呼吸的1/3，但是也消耗的等量的葡萄糖。虽然上面的情况在实际中并不存在（需氧还是厌氧是有环境氧气浓度决定），但是可以想见二氧化碳释放最少时并不是有机物消耗最少时。如何解释这一问题？
+P27 第5题  此题作业帮上答案众说纷纭，并无合理的依据  
+P36  第20题 此题难度极大，又觉网上的答案讨论的情形不完整，多有缺漏""",
+      "from": "暑假作业P24,27,36",
+      "reply": 1,
+      "click": 72,
+    },
+    {
+      "grade": "高三",
+      "subject": "生物",
+      "title": "生物选修本",
+      "teacher": "陈玉梅",
+      "content": "1、上课时说形成愈伤组织应当避光，但为何选修一课本P59上说形成愈伤组织需要一定的光照？",
+      "from": "选修一课本、选修本五三",
+      "reply": 1,
+      "click": 225,
+    },
+  ];
+  static const List readmoredata = [
+    {
+      "title": "关于效实中学网站暂停学生服务的通知",
+      "time": "2019-8-12",
+      "id": "1",
+    },
+    {
+      "title": "暑期活动继续暂停通知",
+      "time": "2019-8-10",
+      "id": "2",
+    },
+    {
+      "title": "关于做好防御今年第9号台风工作的通知",
+      "time": "2019-8-9",
+      "id": "3",
+    },
+    {
+      "title": "暂停暑期辅导活动通知",
+      "time": "2019-8-8",
+      "id": "4",
+    },
+    {
+      "title": "宁波市效实中学22届学生申请住校须知",
+      "time": "2019-8-5",
+      "id": "5",
+    },
+    {
+      "title": "关于效实中学网站暂停学生服务的通知",
+      "time": "2019-8-12",
+      "id": "1",
+    },
+    {
+      "title": "暑期活动继续暂停通知",
+      "time": "2019-8-10",
+      "id": "2",
+    },
+    {
+      "title": "关于做好防御今年第9号台风工作的通知",
+      "time": "2019-8-9",
+      "id": "3",
+    },
+    {
+      "title": "暂停暑期辅导活动通知",
+      "time": "2019-8-8",
+      "id": "4",
+    },
+    {
+      "title": "宁波市效实中学22届学生申请住校须知",
+      "time": "2019-8-5",
+      "id": "5",
+    },
+    {
+      "title": "关于效实中学网站暂停学生服务的通知",
+      "time": "2019-8-12",
+      "id": "1",
+    },
+    {
+      "title": "暑期活动继续暂停通知",
+      "time": "2019-8-10",
+      "id": "2",
+    },
+    {
+      "title": "关于做好防御今年第9号台风工作的通知",
+      "time": "2019-8-9",
+      "id": "3",
+    },
+    {
+      "title": "暂停暑期辅导活动通知",
+      "time": "2019-8-8",
+      "id": "4",
+    },
+    {
+      "title": "宁波市效实中学22届学生申请住校须知",
+      "time": "2019-8-5",
+      "id": "5",
+    },
+    {
+      "title": "关于效实中学网站暂停学生服务的通知",
+      "time": "2019-8-12",
+      "id": "1",
+    },
+    {
+      "title": "暑期活动继续暂停通知",
+      "time": "2019-8-10",
+      "id": "2",
+    },
+    {
+      "title": "关于做好防御今年第9号台风工作的通知",
+      "time": "2019-8-9",
+      "id": "3",
+    },
+    {
+      "title": "暂停暑期辅导活动通知",
+      "time": "2019-8-8",
+      "id": "4",
+    },
+    {
+      "title": "宁波市效实中学22届学生申请住校须知",
+      "time": "2019-8-5",
+      "id": "5",
+    },
+  ];
 }

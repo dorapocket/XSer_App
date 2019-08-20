@@ -1,12 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:xser/main.dart';
-import 'package:xser/routers/routes.dart';
-import 'package:xser/const/const.dart';
+import 'package:XSer/main.dart';
+import 'package:XSer/routers/routes.dart';
+import 'package:XSer/const/const.dart';
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
-import 'searchScoreStep.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SearchScore extends StatefulWidget {
   final step;
@@ -34,13 +34,13 @@ class _SearchScoreState extends State<SearchScore> {
         return normalExam(); //普通考试查询
         break;
       case 2:
-        return runExam();  //考查课查询
+        return runExam(); //考查课查询
         break;
       case 3:
-        return Container();  //查询结果页
+        return resultPage(); //查询结果页
         break;
       default:
-      typeSelect(); //选择查询类别
+        typeSelect(); //选择查询类别
         break;
     }
   }
@@ -524,5 +524,91 @@ class _SearchScoreState extends State<SearchScore> {
         ),
       ),
     );
+  }
+
+  Widget resultPage() {
+    List<Map> getDataList() {
+    List<Map> list = [
+      {"subject":"语文","score":125},
+      {"subject":"数学","score":140},
+      {"subject":"英语","score":144},
+      {"subject":"物理","score":97},
+      {"subject":"化学","score":94},
+      {"subject":"生物","score":100},
+      {"subject":"政治","score":97},
+      {"subject":"历史","score":94},
+      {"subject":"地理","score":91},
+    ];
+    return list;
+  }
+
+  Widget getItemContainer(Map item) {
+    return Container(
+      decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            item["subject"],
+            style: TextStyle(color: C.XS_BLUE, fontSize: 20,fontWeight:FontWeight.w700),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+                      child: Text(
+              item["score"].toString(),
+              
+              style: TextStyle(color: Colors.blue, fontSize: 30,fontWeight:FontWeight.w500,fontFamily: "Montserrat"),
+            ),
+          ),
+        ],
+      ),
+
+    );
+  }
+  List<Widget> getWidgetList() {
+    return getDataList().map((item) => getItemContainer(item)).toList();
+  }
+  return Container(
+    height: MediaQuery.of(context).size.height,
+    width: MediaQuery.of(context).size.width,
+    color: Colors.grey[200],
+    child: Column(
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          color: C.XS_BLUE,
+          child: Center(
+            child: Text("2019学年第一学期九校联考",
+        style: TextStyle(
+          color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w300,
+        ),),
+          ),
+        ),
+        Expanded(
+                child: GridView.count(
+              //水平子Widget之间间距
+              crossAxisSpacing: 6.0,
+              //垂直子Widget之间间距
+              mainAxisSpacing: 6.0,
+              //GridView内边距
+              padding: EdgeInsets.all(10.0),
+              //一行的Widget数量
+              crossAxisCount: 3,
+              //子Widget宽高比例
+              childAspectRatio: 0.7,
+              //子Widget列表
+              children: getWidgetList(),
+            ),
+        ),
+      ],
+    ),
+  );
   }
 }

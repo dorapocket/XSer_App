@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:xser/const/const.dart';
-import 'package:xser/components/searchScore.dart';
-import 'package:xser/components/bottomBar.dart';
-import 'package:xser/routers/routes.dart';
+import 'package:XSer/const/const.dart';
+import 'package:XSer/components/searchScore.dart';
+import 'package:XSer/components/bottomBar.dart';
+import 'package:XSer/routers/routes.dart';
 import 'package:fluro/fluro.dart';
-import 'package:xser/routers/application.dart';
+import 'package:XSer/routers/application.dart';
 
 void main() => runApp(MyApp());
 

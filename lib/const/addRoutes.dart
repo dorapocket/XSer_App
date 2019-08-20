@@ -1,7 +1,7 @@
 //要传值的页面这么写：
 /*
 import 'package:fluro/fluro.dart';
-import 'package:xser/routers/routes.dart';
+import 'package:XSer/routers/routes.dart';
 var json =Uri.encodeQueryComponent("haha"); //传输内容 要encode
 var j2=Uri.encodeQueryComponent("我是lgy");
 Routes.router.navigateTo(

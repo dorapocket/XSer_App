@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:convert';
 import 'package:fluro/fluro.dart';
-import 'package:xser/routers/routes.dart';
+import 'package:XSer/routers/routes.dart';
 
 class MyFeatures extends StatefulWidget {
   MyFeatures({Key key}) : super(key: key);
@@ -20,9 +20,24 @@ class _MyFeaturesState extends State<MyFeatures> {
         {
           "itemIcon": Icons.score,
           "itemName": "成绩查询",
-          "routeName": "/go",
+          "routeName": "/searchScore?step=0",
         },
         {
+          "itemIcon": Icons.school,
+          "itemName": "DD90",
+          "routeName": "/dd90List",
+        },
+        {
+          "itemIcon": Icons.exit_to_app,
+          "itemName": "Editor",
+          "routeName": "/editor?title=test&type=test",
+        },
+        {
+          "itemIcon": Icons.notifications,
+          "itemName": "缴费查询",
+          "routeName": "/",
+        },
+        /*{
           "itemIcon": Icons.exit_to_app,
           "itemName": "出入校",
           "routeName": "/",
@@ -51,14 +66,14 @@ class _MyFeaturesState extends State<MyFeatures> {
           "itemIcon": Icons.web_asset,
           "itemName": "课本资源",
           "routeName": "/",
-        },
+        },*/
       ]
     },
     {
       "icon": Icons.school,
       "blockName": "毕业生",
       "color": Colors.blue,
-      "item": [
+      "item": [/*
         {
           "itemIcon": Icons.library_books,
           "itemName": "通讯录",
@@ -68,23 +83,23 @@ class _MyFeaturesState extends State<MyFeatures> {
           "itemIcon": Icons.home,
           "itemName": "班级主页",
           "routeName": "/",
-        },
+        },*/
       ]
     },
     {
       "icon": Icons.apps,
       "blockName": "设置",
       "color": Colors.blue,
-      "item": [
+      "item": [/*
         {
           "itemIcon": Icons.update,
           "itemName": "软件更新",
           "routeName": "/",
-        },
+        },*/
         {
           "itemIcon": Icons.done,
           "itemName": "关于",
-          "routeName": "/",
+          "routeName": "/about",
         },
       ]
     }
@@ -232,9 +247,8 @@ class _MyFeaturesState extends State<MyFeatures> {
     return GestureDetector(
       onTap: () {
         print(title + " is tapped!");
-        var json = Uri.encodeQueryComponent("0");
         Routes.router.navigateTo(
-            context, '${Routes.searchScore}?step=$json', //跳转路径
+            context, route, //跳转路径
             transition: TransitionType.fadeIn);
       },
       child: Container(

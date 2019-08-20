@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../const/const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluro/fluro.dart';
+import 'package:XSer/routers/routes.dart';
 class MyXS extends StatefulWidget {
   MyXS({Key key}) : super(key: key);
 
@@ -150,63 +152,73 @@ Widget dayInf(BuildContext context){
           gridCard(Icons.account_balance_wallet, "一卡通余额", "28.08",C.LIGHT_BLUE,Colors.white),
           gridCard(Icons.message, "未读消息", "2",Color.fromARGB(255, 216, 67, 21),Colors.white),
           gridCard(Icons.wb_sunny, "天气", "35℃",Color.fromARGB(255, 106, 27, 154),Colors.white),
-          gridCard(Icons.question_answer, "DD90", "7",Color.fromARGB(255, 21, 101, 192),Colors.white),
+          gridCard(Icons.question_answer, "DD90", "7",Color.fromARGB(255, 21, 101, 192),Colors.white,route:"/dd90List"),
         ]);
   }
-  Widget gridCard(IconData icon,String text,String value,Color color,Color bkcolor){
+  beginRoute(route){
+Routes.router.navigateTo(
+  context, 
+  route,//跳转路径 get格式
+  transition: TransitionType.inFromRight//过场效果
+);
+  }
+  Widget gridCard(IconData icon,String text,String value,Color color,Color bkcolor,{String route}){
     return 
-    Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: bkcolor,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(3, 3),
-                  //color: Colors.black,
-                  blurRadius: 100,
-                  spreadRadius: -50,
-                ),
-              ],
-            ),
-            child:
-    Column(
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        icon,
-                        color: color,
-                        size: 25,
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        text,
-                        style: TextStyle(
-                            color: color,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            fontFamily: "Product Sans"),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        value.toString(),
-                        style: TextStyle(
-                            color: color,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 30,
-                            fontFamily: "Montserrat"),
-                      ),
-                    ],
+    GestureDetector(
+      onTap:route==null?(){}:(){beginRoute(route);},
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: bkcolor,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(3, 3),
+                    //color: Colors.black,
+                    blurRadius: 100,
+                    spreadRadius: -50,
                   ),
-                ),
-              ],
-            ));
+                ],
+              ),
+              child:
+      Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          icon,
+                          color: color,
+                          size: 25,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          text,
+                          style: TextStyle(
+                              color: color,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              fontFamily: "Product Sans"),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          value.toString(),
+                          style: TextStyle(
+                              color: color,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 30,
+                              fontFamily: "Montserrat"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+    );
   }
 }

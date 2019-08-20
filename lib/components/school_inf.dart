@@ -1,6 +1,7 @@
+import 'package:XSer/components/school_inf_more.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:xser/components/articleReader.dart';
+import 'package:XSer/components/articleReader.dart';
 
 class SchoolInf extends StatefulWidget {
   SchoolInf({Key key}) : super(key: key);
@@ -80,7 +81,15 @@ Widget schoolpublic(){
                 Icons.public,
               ),
               trailing: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  	Navigator.of(context).push(
+			MaterialPageRoute(
+				builder:(BuildContext context){
+					return SchoolInfMore(type:"校务公开");     //路由到新页面 传值时候写在参数里
+				}
+			)
+		);
+                },
                 child: Text("查看更多"),
               ),
             ),
@@ -165,7 +174,15 @@ Widget schoolpublic(){
                 Icons.new_releases,
               ),
               trailing: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+			MaterialPageRoute(
+				builder:(BuildContext context){
+					return SchoolInfMore(type:"最新文章");     //路由到新页面 传值时候写在参数里
+				}
+			)
+		);
+                },
                 child: Text("查看更多"),
               ),
             ),
@@ -199,7 +216,15 @@ Widget schoolpublic(){
               //subtitle: new Text('子标题'),
               leading: Icon(Icons.notifications),
               trailing: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+			MaterialPageRoute(
+				builder:(BuildContext context){
+					return SchoolInfMore(type:"通知公告");     //路由到新页面 传值时候写在参数里
+				}
+			)
+		);
+                },
                 child: Text("查看更多"),
               ),
             ),
