@@ -64,6 +64,41 @@ flutter run
 
 The required dependencies will automatically installed
 
+#####推送设置
+
+**项目采用极光推送 请现在极光推送注册app**
+
+在 /android/app/build.gradle 中添加下列代码：
+
+```bash
+android: {
+  ....
+  defaultConfig {
+    applicationId "替换成自己应用 ID"
+    ...
+    manifestPlaceholders = [
+        JPUSH_PKGNAME : applicationId,
+        JPUSH_APPKEY : "appkey", // NOTE: JPush 上注册的包名对应的 Appkey.
+        JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+    ]
+  }    
+}
+```
+
+根据官方pub说明 添加代码到main.dart
+
+实测该版本推送pub包会有导入冲突错误 请在你项目的.packages里面找到jpush的地址
+
+比如我这里是C:\Users\dorap\AppData\Roaming\Pub\Cache\hosted\pub.flutter-io.cn\jpush_flutter-0.0.13
+
+进入android 修改build.gradle 删除 dependencies里面 
+
+```bash
+//implementation 'com.android.support:appcompat-v7:27.+'
+```
+
+应该就不会报错了
+
 ## 功能 Features
 
 **本项目仍在开发中 目前直接下载只会出现静态数据 没有写入API请求部分 后期完善**

@@ -6,7 +6,9 @@ import 'package:XSer/components/bottomBar.dart';
 import 'package:XSer/routers/routes.dart';
 import 'package:fluro/fluro.dart';
 import 'package:XSer/routers/application.dart';
-
+import 'package:flutter/services.dart';
+import 'dart:async';
+import 'package:jpush_flutter/jpush_flutter.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -15,14 +17,75 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String debugLable = 'Unknown';
+final JPush jpush = new JPush();
   @override
   void initState() {
     final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
+     initPlatformState();
     super.initState();
   }
+// Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    
 
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    jpush.getRegistrationID().then((rid) {
+      setState(() {
+          debugLable = "flutter getRegistrationID: $rid";
+        });
+    });
+
+    jpush.setup(
+      appKey: "12936766317124f4784254a8",
+      channel: "theChannel",
+      production: false,
+      debug: true,
+      );
+    jpush.applyPushAuthority(new NotificationSettingsIOS(
+      sound: true,
+      alert: true,
+      badge: true));
+
+    try {
+      
+      jpush.addEventHandler(
+        onReceiveNotification: (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotification: $message");
+        setState(() {
+            debugLable = "flutter onReceiveNotification: $message";
+          });
+      },
+      onOpenNotification: (Map<String, dynamic> message) async {
+        print("flutter onOpenNotification: $message");
+        setState(() {
+            debugLable = "flutter onOpenNotification: $message";
+          });
+      },
+      onReceiveMessage: (Map<String, dynamic> message) async {
+        print("flutter onReceiveMessage: $message");
+        setState(() {
+            debugLable = "flutter onReceiveMessage: $message";
+          });
+      },
+      );
+
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      debugLable = platformVersion;
+    });
+  }
   final routes = Router();
   @override
   Widget build(BuildContext context) {

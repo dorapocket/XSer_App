@@ -44,6 +44,11 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "12936766317124f4784254a8", // NOTE: JPush 上注册的包名对应的 Appkey.
+            JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     def keystorePropertiesFile = rootProject.file("key.properties")
 	def keystoreProperties = new Properties()
@@ -72,4 +77,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 }

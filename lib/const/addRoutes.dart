@@ -22,4 +22,12 @@ router.define(
   }
   )
 );
+
+
+
+
+
+环境记得把
+C:\Users\dorap\AppData\Roaming\Pub\Cache\hosted\pub.flutter-io.cn\jpush_flutter-0.0.13\android
+里面android：support删掉 不然会有冲突错误
 */
