@@ -7,6 +7,7 @@ import '../components/dd90_list.dart';
 import '../components/editor.dart';
 import '../components/dd90_content.dart';
 import '../components/purchase.dart';
+import '../components/login.dart';
 class Routes {
   static Router router;
   static String homePage = '/home';
@@ -16,9 +17,12 @@ class Routes {
   static String editor = '/editor';
   static String dd90content = '/dd90content';
   static String purchase = '/purchase';
+  static String login='/login';
   static void configureRoutes(Router router) {
     router.define(homePage,
         handler: Handler(handlerFunc: (context, params) => BottomBar()));
+        router.define(login,
+        handler: Handler(handlerFunc: (context, params) => LoginPage()));
          router.define(purchase,
         handler: Handler(handlerFunc: (context, params) => Purchase()));
         router.define(dd90content,

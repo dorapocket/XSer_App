@@ -149,7 +149,7 @@ Widget dayInf(BuildContext context){
         crossAxisCount: 2,
         childAspectRatio: 1,
         children: <Widget>[
-          gridCard(Icons.account_balance_wallet, "一卡通余额", "28.08",C.LIGHT_BLUE,Colors.white),
+          gridCard(Icons.account_balance_wallet, "一卡通余额", "28.08",C.LIGHT_BLUE,Colors.white,route:"/purchase"),
           gridCard(Icons.message, "未读消息", "2",Color.fromARGB(255, 216, 67, 21),Colors.white),
           gridCard(Icons.wb_sunny, "天气", "35℃",Color.fromARGB(255, 106, 27, 154),Colors.white),
           gridCard(Icons.question_answer, "DD90", "7",Color.fromARGB(255, 21, 101, 192),Colors.white,route:"/dd90List"),

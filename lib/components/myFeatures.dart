@@ -29,19 +29,20 @@ class _MyFeaturesState extends State<MyFeatures> {
         },
         {
           "itemIcon": Icons.exit_to_app,
-          "itemName": "Editor",
+          "itemName": "Editor测试",
           "routeName": "/editor?title=test&type=test",
         },
         {
-          "itemIcon": Icons.notifications,
-          "itemName": "缴费查询",
-          "routeName": "/",
+          "itemIcon": Icons.payment,
+          "itemName": "饭卡消费记录",
+          "routeName": "/purchase",
         },
-        /*{
+        {
           "itemIcon": Icons.exit_to_app,
-          "itemName": "出入校",
-          "routeName": "/",
+          "itemName": "登陆页面测试",
+          "routeName": "/login",
         },
+        /*
         {
           "itemIcon": Icons.notifications,
           "itemName": "缴费查询",
@@ -104,6 +105,13 @@ class _MyFeaturesState extends State<MyFeatures> {
       ]
     }
   ];
+  double getContainerHeight(double a){
+    if(a%4==0){
+      return (a/4)*80.toDouble();
+    }else{
+      return 80 * (1 + ((a) / 4).floor()).toDouble();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     List<Widget> _block = [];
@@ -172,7 +180,7 @@ class _MyFeaturesState extends State<MyFeatures> {
         ),
       ),*/
                   child: Container(
-                    height: 80 * (1 + ((item.length) / 4).floor()).toDouble(),
+                    height: getContainerHeight(item.length.toDouble()),
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       children: _buildWidgetContainer(context, item),
