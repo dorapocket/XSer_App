@@ -26,9 +26,11 @@ A cross-platform App created by two 2018 graduates from Ningbo XiaoShi High Scho
 
 [ztjryg4](https://github.com/ztjryg4)  API
 
+效实中学动漫社  App图标
+
 ## 开发
 
-如果你有意向加入开发 欢迎申请加入我们 请邮件到dorapocket@outlook.com
+如果你有意向加入开发 欢迎加入我们 请邮件到dorapocket@outlook.com
 
 If you are interested to join the development application, please email to dorapocket@outlook.com
 
