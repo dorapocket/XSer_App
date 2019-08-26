@@ -33,8 +33,10 @@ class Routes {
         handler: Handler(handlerFunc: (context, params) => About()));
     router.define(searchScore, handler: Handler(handlerFunc: (context, params) {
       var step = params['step']?.first; //取出传参
+      var id = params['examid']?.first; //取出传参
+      var name = params['examname']?.first; //取出传参
       //var maya = params['maya']?.first; //取出传参
-      return SearchScore(step);
+      return SearchScore(step,id:id,name:name);
     }));
     router.define(editor, handler: Handler(handlerFunc: (context, params) {
       String title = params['title']?.first; //取出传参

@@ -86,6 +86,13 @@ class ArticleReader extends StatelessWidget {
                           });
       
     }
+    if(snapshot.data['content']==""){
+      Timer(
+                          Duration(milliseconds: 500),
+                          (){
+                               fuToast("解析文章出错了TAT", Colors.red[400], context);
+                          });      
+    }
 
           return Container(
           height:MediaQuery.of(context).size.height,

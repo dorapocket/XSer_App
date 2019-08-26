@@ -11,8 +11,8 @@ class SqlLite {
     String path = "${await getDatabasesPath()}/$sqlFileName";
     if (db == null) {
       db = await openDatabase(path, version: 1, onCreate: (db, ver) async {
-      print("创建用户信息表");
-      await db.execute("""
+        print("创建用户信息表");
+        await db.execute("""
         Create Table myxs(
         RealName text,
         grade text,
@@ -26,17 +26,17 @@ class SqlLite {
         notifications integer
         );
         """);
-      // 登录状态
-      await db.execute("""
+        // 登录状态
+        await db.execute("""
         Create Table loginState(
          login bit primary key,
          first bit,
          code int
         );
         """);
-      await db.insert("loginState", {'login': 0, 'first': 1, 'code': 200});
-      // 记住使用手机号登录过的账户
-      await db.execute("""
+        await db.insert("loginState", {'login': 0, 'first': 1, 'code': 200});
+        // 记住使用手机号登录过的账户
+        await db.execute("""
         Create Table userSecret(
          name text,
          Account text,
@@ -46,9 +46,8 @@ class SqlLite {
          appsecret text
         );
         """);
-      
-    });
-  }
+      });
+    }
   }
 
   // 登录成功存储相关部分登录信息，方便以后调用
@@ -106,6 +105,7 @@ class SqlLite {
       }
     });
   }
+
   // 删除用户数据
   delLoginInfo() async {
     return await db.delete('myxs').then((e) {
@@ -114,6 +114,7 @@ class SqlLite {
       db.update("loginState", {'login': 0}).then((e) {});
     });
   }
+
   queryMyXS() async {
     return await db.query("myxs", columns: null);
   }
@@ -127,19 +128,7 @@ class SqlLite {
   }
 
   // 缓存首页新闻
-  insertHomeNews(String data) async {
-    // 账户基本信息，头像等
-    print("删除原有首页数据");
-    if (data != "") {
-      db.delete(userInfo);
-      db.insert(userInfo, {'data': data});
-    }
-  }
 
-  //读取首页新闻缓存数据
-  queryhomeNews() async {
-    return await db.query("homeNews", columns: null);
-  }
 
   Future<int> count(tableNote) async {
     return Sqflite.firstIntValue(

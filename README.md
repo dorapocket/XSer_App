@@ -101,15 +101,15 @@ android: {
 
 ## 功能 Features
 
-**本项目仍在开发中 目前直接下载只会出现静态数据 没有写入API请求部分 后期完善**
+**本项目已经接入最新的XSer API 鉴于校网目前正在改版 后期会加以完善**
 
-**At present, only static data will be used, the API request still under development**
+**This project has been connected to the latest XSer API and will be improved later.**
 
-- 爬取校网主页 获取最新文章信息 
+- 爬取校网主页 获取最新文章信息(done)
 - Crawl the homepage of the school website to get the latest article information
-- “我的效实”界面:登录、天气、一卡通余额、DD90、未读信息
-- "MyXS" interface : login, weather, card balance, DD90, unread information
-- “功能”界面：查成绩、查书、通讯录
+- “我的效实”界面:登录、天气、一卡通余额、DD90、未读信息(开发中)
+- "MyXS" interface : login, weather, card balance, DD90, unread information(Developing)
+- “功能”界面：查成绩(done)、查书、通讯录
 - "Features" interface : Score, Search Books, Address List for graduate
 - Developing...
 

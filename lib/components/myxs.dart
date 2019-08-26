@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:XSer/components/login.dart';
 import 'package:XSer/utils/commonRequests.dart';
 import 'package:XSer/utils/sqLiteUser.dart';
@@ -6,7 +8,7 @@ import '../const/const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluro/fluro.dart';
 import 'package:XSer/routers/routes.dart';
-
+import 'package:async/src/async_memoizer.dart';
 class MyXS extends StatefulWidget {
   MyXS({Key key}) : super(key: key);
 
@@ -14,8 +16,13 @@ class MyXS extends StatefulWidget {
 }
 
 bool lgin=false;
+AsyncMemoizer _memoizer = AsyncMemoizer();
 class _MyXSState extends State<MyXS>{
-  
+  Future<dynamic> _buildFuture() async{
+    return _memoizer.runOnce(() async {
+      return await XSerApi.getMyXS();
+    });
+  }
   //checklogin() async{
   //bool hh=await XSerApi.checkLogin();
 //}
@@ -32,7 +39,7 @@ class _MyXSState extends State<MyXS>{
       print("hhhhhhhhhhhhhhhhhhhhhhh");
     }
     return FutureBuilder(
-  future: XSerApi.getMyXS(), // 用户定义的需要异步执行的代码，类型为Future<String>或者null的变量或函数
+  future: _buildFuture(), // 用户定义的需要异步执行的代码，类型为Future<String>或者null的变量或函数
   builder: (BuildContext context, AsyncSnapshot snapshot) {      //snapshot就是_calculation在时间轴上执行过程的状态快照
     switch (snapshot.connectionState) {
       case ConnectionState.none: 
@@ -55,6 +62,16 @@ class _MyXSState extends State<MyXS>{
         if (snapshot.hasError)    //若_calculation执行出现异常
           return Text('Error: ${snapshot.error}');
         else if(snapshot.data['RealName']=="请先登录"){
+          Timer(
+                          Duration(milliseconds: 500),
+                          () => {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                    (route) => route == null)
+                                
+                              });
+         _memoizer =new AsyncMemoizer();
           return Container(
             color: Colors.grey[200],
             child: Center(

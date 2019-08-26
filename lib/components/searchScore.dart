@@ -1,3 +1,4 @@
+import 'package:XSer/utils/commonRequests.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:XSer/main.dart';
@@ -7,16 +8,30 @@ import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:async/src/async_memoizer.dart';
 class SearchScore extends StatefulWidget {
   final step;
-  const SearchScore(this.step);
-  _SearchScoreState createState() => _SearchScoreState(int.parse(step));
+  String id="";
+  String name="";
+  SearchScore(this.step,{this.id,this.name}){
+    print(id);
+  }
+  _SearchScoreState createState() => _SearchScoreState(int.parse(step),id:id,name:name);
 }
-
+final AsyncMemoizer _memoizer = AsyncMemoizer();
+String selectExam="";
+String selectExamName="";
 class _SearchScoreState extends State<SearchScore> {
+  String id="";
+  String name="";
+  List<String> normalexams=["请选择"];
   int step;
-  _SearchScoreState(this.step);
+  _SearchScoreState(this.step,{this.id,this.name});
+  Future<dynamic> _buildFuture() async{
+    return _memoizer.runOnce(() async {
+      return await XSerApi.getExamList();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,19 +40,66 @@ class _SearchScoreState extends State<SearchScore> {
     );
   }
 
+  @override
+  void initState() { 
+    super.initState();
+     //_buildFuture(); 
+    
+  }
   _getbody(step) {
     switch (step) {
       case 0:
         return typeSelect(); //选择查询类别
         break;
       case 1:
-        return normalExam(); //普通考试查询
+        return FutureBuilder(
+          future: _buildFuture(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {      //snapshot就是_calculation在时间轴上执行过程的状态快照
+    switch (snapshot.connectionState) {
+      case ConnectionState.none: 
+      return Text("请稍等。。");
+      case ConnectionState.waiting:
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+      default:    //如果_calculation执行完毕
+        if (snapshot.hasError||!snapshot.hasData)    //若_calculation执行出现异常
+          return Text('非常抱歉，出了点问题，请稍后重试吧！');
+        return normalExam(snapshot.data['data']);
+          }},);
+
         break;
       case 2:
         return runExam(); //考查课查询
         break;
       case 3:
-        return resultPage(); //查询结果页
+      print("考试id为：${id}");
+              return FutureBuilder(
+          future: XSerApi.getExamScore(id),
+          builder: (BuildContext context, AsyncSnapshot snapshot) { 
+            //print(snapshot.data);     //snapshot就是_calculation在时间轴上执行过程的状态快照
+    switch (snapshot.connectionState) {
+      case ConnectionState.none: 
+      return Text("请稍等。。");
+      case ConnectionState.waiting:
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+      default:    //如果_calculation执行完毕
+        if (snapshot.hasError||!snapshot.hasData){
+          if(snapshot.data['data'].isEmpty){
+              return Center(
+                child: Text(
+                  snapshot.data['msg']
+                ),
+              );
+            }
+            return Text('非常抱歉，出了点问题，请稍后重试吧！');
+        }    //若_calculation执行出现异常
+        
+          
+        return resultPage(snapshot.data['data'],name);
+          }},);
         break;
       default:
         typeSelect(); //选择查询类别
@@ -182,7 +244,7 @@ class _SearchScoreState extends State<SearchScore> {
                   ),
                   Center(
                     child: Text(
-                      "考查课考试成绩查询",
+                      "走班选课成绩查询",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -199,15 +261,14 @@ class _SearchScoreState extends State<SearchScore> {
     );
   }
 
-  Widget normalExam() {
-    final _exams = [
-      "九校联考",
-      "十校联考",
-      "11校联考",
-      "12校联考",
-      "13校联考",
-      "14校联考",
-    ];
+  Widget normalExam(List examlist) {
+    List<String> exams=[];
+    if(examlist.isEmpty){
+      return Container();
+    }
+    examlist.forEach((value){
+      exams.add(value['examName']);
+    });
     DirectSelectItem<String> getDropDownMenuItem(String value) {
       return DirectSelectItem<String>(
           itemHeight: 56,
@@ -225,10 +286,11 @@ class _SearchScoreState extends State<SearchScore> {
         ),
       );
     }
-
+      selectExam=examlist[0]['examId'];
+      selectExamName=examlist[0]['examName'];
     final dsl = DirectSelectList<String>(
-        values: _exams,
-        defaultItemIndex: 3,
+        values: exams,
+        defaultItemIndex: exams.length,
         itemBuilder: (String value) => getDropDownMenuItem(value),
         focusedItemDecoration: _getDslDecoration(),
         onItemSelectedListener: (item, index, context) {
@@ -310,7 +372,7 @@ class _SearchScoreState extends State<SearchScore> {
                           Expanded(
                               child: Padding(
                                   child: DirectSelectList<String>(
-                                      values: _exams,
+                                      values: exams,
                                       defaultItemIndex: 0,
                                       itemBuilder: (String value) =>
                                           getDropDownMenuItem(value),
@@ -318,6 +380,9 @@ class _SearchScoreState extends State<SearchScore> {
                                           _getDslDecoration(),
                                       onItemSelectedListener:
                                           (item, index, context) {
+                                        selectExam=examlist[index]['examId'];
+                                        selectExamName=examlist[index]['examName'];
+                                        print(index);
                                         Scaffold.of(context).showSnackBar(
                                             SnackBar(content: Text(item)));
                                       }),
@@ -350,8 +415,11 @@ class _SearchScoreState extends State<SearchScore> {
                     ),
                     onPressed: () {
                       var json = Uri.encodeQueryComponent("3");
+                      var examid=Uri.encodeQueryComponent(selectExam);
+                      var examname=Uri.encodeQueryComponent(selectExamName);
+                      print("路由：${examid}---->${examname}");
                       Routes.router.navigateTo(
-                          context, '${Routes.searchScore}?step=$json', //跳转路径
+                          context, '${Routes.searchScore}?step=$json&examid=$examid&examname=$examname', //跳转路径
                           transition: TransitionType.fadeIn);
                     },
                     textColor: Colors.blueAccent,
@@ -366,7 +434,7 @@ class _SearchScoreState extends State<SearchScore> {
   }
 
   Widget runExam() {
-    final _exams = [
+    final zbxkexams = [
       "2019学年查课总评",
       "2020学年查课总评",
       "2021学年查课总评",
@@ -393,7 +461,7 @@ class _SearchScoreState extends State<SearchScore> {
     }
 
     final dsl = DirectSelectList<String>(
-        values: _exams,
+        values: zbxkexams,
         defaultItemIndex: 3,
         itemBuilder: (String value) => getDropDownMenuItem(value),
         focusedItemDecoration: _getDslDecoration(),
@@ -476,7 +544,7 @@ class _SearchScoreState extends State<SearchScore> {
                           Expanded(
                               child: Padding(
                                   child: DirectSelectList<String>(
-                                      values: _exams,
+                                      values: zbxkexams,
                                       defaultItemIndex: 0,
                                       itemBuilder: (String value) =>
                                           getDropDownMenuItem(value),
@@ -526,19 +594,21 @@ class _SearchScoreState extends State<SearchScore> {
     );
   }
 
-  Widget resultPage() {
+  Widget resultPage(data,name) {
+    if(id==""||name==""){
+      return Container();
+    }
+    List<Map> list=[];
+    data.forEach((value){
+      list.add({
+        "subject":value['0'],
+        "score":value['1'],
+      });
+    });
+    list.removeAt(0);
+    print("生成考试成绩视图");
+    print("data:"+list.toString());
     List<Map> getDataList() {
-    List<Map> list = [
-      {"subject":"语文","score":125},
-      {"subject":"数学","score":140},
-      {"subject":"英语","score":144},
-      {"subject":"物理","score":97},
-      {"subject":"化学","score":94},
-      {"subject":"生物","score":100},
-      {"subject":"政治","score":97},
-      {"subject":"历史","score":94},
-      {"subject":"地理","score":91},
-    ];
     return list;
   }
 
@@ -583,7 +653,7 @@ class _SearchScoreState extends State<SearchScore> {
           height: 50,
           color: C.XS_BLUE,
           child: Center(
-            child: Text("2019学年第一学期九校联考",
+            child: Text(name,
         style: TextStyle(
           color: Colors.white,
             fontSize: 20,
