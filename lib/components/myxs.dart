@@ -1,66 +1,87 @@
+import 'package:XSer/components/login.dart';
+import 'package:XSer/utils/commonRequests.dart';
+import 'package:XSer/utils/sqLiteUser.dart';
 import 'package:flutter/material.dart';
 import '../const/const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluro/fluro.dart';
 import 'package:XSer/routers/routes.dart';
+
 class MyXS extends StatefulWidget {
   MyXS({Key key}) : super(key: key);
 
   _MyXSState createState() => _MyXSState();
 }
 
-class _MyXSState extends State<MyXS> {
+bool lgin=false;
+class _MyXSState extends State<MyXS>{
+  
+  //checklogin() async{
+  //bool hh=await XSerApi.checkLogin();
+//}
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 20),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "王二狗",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "18届12班 校内学生",
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          dayInf(context),
-          Expanded(
-            child: Container(
-              color: Colors.grey[200],
-              child: gridGroup(),
-            ),
-          ),
-        ],
-      ),
-    );
+  void initState(){
+    //print("ss");
+    //checklogin();
+    // TODO: implement initState
+    super.initState();
   }
-Widget dayInf(BuildContext context){
+  @override
+  Widget build(BuildContext context){
+    if(lgin){
+      print("hhhhhhhhhhhhhhhhhhhhhhh");
+    }
+    return FutureBuilder(
+  future: XSerApi.getMyXS(), // 用户定义的需要异步执行的代码，类型为Future<String>或者null的变量或函数
+  builder: (BuildContext context, AsyncSnapshot snapshot) {      //snapshot就是_calculation在时间轴上执行过程的状态快照
+    switch (snapshot.connectionState) {
+      case ConnectionState.none: 
+      return Text("请稍等。。");
+      case ConnectionState.waiting:
+      return MyXSMain(
+        context: context,
+            day: "",
+            date: "",
+            week: "",
+            weathericon: "",
+            name:"",
+            grade:"",
+            weather:"0",
+            dd90:0,
+            balance:0,
+            notifications:0
+            );
+      default:    //如果_calculation执行完毕
+        if (snapshot.hasError)    //若_calculation执行出现异常
+          return Text('Error: ${snapshot.error}');
+        else if(snapshot.data['RealName']=="请先登录"){
+          return Container(
+            color: Colors.grey[200],
+            child: Center(
+              child: Text("请先登录"),
+            ),
+          );
+        }else{
+          return MyXSMain(
+            context: context,
+            day:"周日",
+            date: "8月25日",
+            week: "第一周",
+            weathericon: "",
+            name: snapshot.data['RealName'],
+            grade:snapshot.data['grade'],
+            weather:snapshot.data['weather'],
+            dd90:snapshot.data['dd90'],
+            balance:snapshot.data['balance'],
+            notifications: snapshot.data['notifications']
+            );
+        }   //若_calculation执行正常完成
+          
+    }
+  },
+);
+  }
+Widget dayInf(day,date,week,weathericon,BuildContext context){
   return Container(
     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
     height: 100,
@@ -84,7 +105,7 @@ Widget dayInf(BuildContext context){
               textBaseline: TextBaseline.alphabetic,
               children: <Widget>[
                 Text(
-                  "周二",
+                  day,
                   style: TextStyle(
                       color: Color.fromARGB(210, 255, 255, 255),
                       fontSize: 30,
@@ -93,7 +114,7 @@ Widget dayInf(BuildContext context){
                   ),
                 ),
                 Text(
-                  "   第1周",
+                  week,
                   style: TextStyle(
                       color: Color.fromARGB(210, 255, 255, 255),
                       fontSize: 15,
@@ -109,7 +130,7 @@ Widget dayInf(BuildContext context){
             left: 20,
             child:
                 Text(
-                  "8月6日",
+                  date,
                   style: TextStyle(
                       color: Color.fromARGB(210, 255, 255, 255),
                       fontSize: 20,
@@ -140,7 +161,57 @@ Widget dayInf(BuildContext context){
   )
   ;
 }
-  Widget gridGroup() {
+
+Widget MyXSMain({name,grade,balance,notifications,dd90,weather,day,date,week,weathericon,context}){
+  return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 20),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                grade,
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          dayInf(day,date,week,weathericon,context),
+          Expanded(
+            child: Container(
+              color: Colors.grey[200],
+              child: gridGroup(balance,notifications,weather,dd90),
+            ),
+          ),
+        ],
+      ),
+    );
+}
+  Widget gridGroup(balance,notifications,weather,dd90) {
     return GridView.count(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(10),
@@ -149,10 +220,10 @@ Widget dayInf(BuildContext context){
         crossAxisCount: 2,
         childAspectRatio: 1,
         children: <Widget>[
-          gridCard(Icons.account_balance_wallet, "一卡通余额", "28.08",C.LIGHT_BLUE,Colors.white,route:"/purchase"),
-          gridCard(Icons.message, "未读消息", "2",Color.fromARGB(255, 216, 67, 21),Colors.white),
-          gridCard(Icons.wb_sunny, "天气", "35℃",Color.fromARGB(255, 106, 27, 154),Colors.white),
-          gridCard(Icons.question_answer, "DD90", "7",Color.fromARGB(255, 21, 101, 192),Colors.white,route:"/dd90List"),
+          gridCard(Icons.account_balance_wallet, "一卡通余额", balance.toString(),C.LIGHT_BLUE,Colors.white,route:"/purchase"),
+          gridCard(Icons.message, "未读消息", notifications.toString(),Color.fromARGB(255, 216, 67, 21),Colors.white),
+          gridCard(Icons.wb_sunny, "天气",weather,Color.fromARGB(255, 106, 27, 154),Colors.white),
+          gridCard(Icons.question_answer, "DD90",dd90.toString(),Color.fromARGB(255, 21, 101, 192),Colors.white,route:"/dd90List"),
         ]);
   }
   beginRoute(route){

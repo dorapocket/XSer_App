@@ -1,3 +1,4 @@
+import 'package:XSer/utils/commonRequests.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:XSer/const/const.dart';
@@ -9,15 +10,19 @@ import 'package:XSer/routers/application.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:jpush_flutter/jpush_flutter.dart';
+import 'utils/commonRequests.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
   _MyAppState createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   String debugLable = 'Unknown';
+  chklgin()async{
+    print("");
+   
+  }
 final JPush jpush = new JPush();
   @override
   void initState() {
@@ -25,6 +30,7 @@ final JPush jpush = new JPush();
     Routes.configureRoutes(router);
     Application.router = router;
      initPlatformState();
+     chklgin();
     super.initState();
   }
 // Platform messages are asynchronous, so we initialize in an async method.
@@ -113,6 +119,16 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+  bool loginstat=false;
+  String username="";
+  getUserName() async{
+    String a= await XSerApi.getUserNameFromDB();
+    bool b=await XSerApi.relogin();
+    setState(() {
+      username=a;
+      loginstat=b;
+    });
+  }
   startTime() async {
     //设置启动图生效时间
     var _duration = new Duration(seconds: 3);
@@ -125,6 +141,7 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   void initState() {
+    getUserName();
     super.initState();
     startTime();
   }
@@ -145,8 +162,8 @@ class _StartScreenState extends State<StartScreen> {
               SizedBox(
                 height: 150,
               ),
-              Image.network(
-                "http://dolime.lgyserver.top/logo.png",
+              Image.asset(
+                "images/waitpagelogo.png",
                 width: 150,
                 height: 150,
               ),
@@ -165,7 +182,7 @@ class _StartScreenState extends State<StartScreen> {
                 height: 50,
               ),
               Text(
-                "xxx老师",
+                username,
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,

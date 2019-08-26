@@ -6,8 +6,8 @@ import 'school_inf.dart';
 import 'myxs.dart';
 import 'myFeatures.dart';
 class BottomBar extends StatefulWidget {
+  int pagea=0;
   BottomBar({Key key}) : super(key: key);
-
   _BottomBarState createState() => _BottomBarState();
 }
 

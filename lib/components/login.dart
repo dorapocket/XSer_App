@@ -1,6 +1,13 @@
+import 'dart:async';
+
+import 'package:XSer/components/bottomBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../const/const.dart';
+import '../utils/commonRequests.dart';
+import '../utils/sysNote.dart';
+import 'package:XSer/routers/routes.dart';
+import '../components/myxs.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -8,10 +15,24 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
+final usernameController = TextEditingController();
+final passwordController = TextEditingController();
+String u = "";
+String p = "";
+
 class _LoginPageState extends State<LoginPage> {
   bool check = true;
   @override
   Widget build(BuildContext context) {
+    usernameController.addListener(() {
+      u = usernameController.text;
+      print(u + p);
+    });
+    passwordController.addListener(() {
+      usernameController.text = u;
+      p = passwordController.text;
+      print(u + p);
+    });
     return Container(
       child: Scaffold(
         body: Container(
@@ -52,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextField(
-                        
+                        controller: usernameController,
                         decoration: InputDecoration(
                           //hasFloatingPlaceholder: true,
                           hintText: "用户名",
@@ -77,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextField(
+                        controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           //hasFloatingPlaceholder: true,
@@ -97,11 +119,12 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Checkbox(
-
                         onChanged: (bool val) {
                           // val 是布尔值
                           this.setState(() {
                             this.check = !this.check;
+                            passwordController.text = p;
+                            usernameController.text = u;
                           });
                         },
                         activeColor: Colors.blue,
@@ -119,21 +142,54 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width-100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(colors: [Color(0xFF69f0ae), Color(0xFF00c853),], begin: FractionalOffset(0, 1), end: FractionalOffset(1, 0))
-                  ),
-                  child: Center(
-                    child: Text(
-                      "登  录  LOGIN ",
-                      style: TextStyle(
-                        fontFamily: "Product Sans",
-                        color: Color(0x99000000),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
+                GestureDetector(
+                  onTap: () async {
+                    fuToast("正在登录，请稍后", Colors.green[400], context);
+                    Map<String, dynamic> result = await XSerApi.Studentlogin({
+                      "user": "${u}",
+                      "password": "${p}",
+                      "method": "student"
+                    }, check);
+                    //Map<String, dynamic> result = {"code": 200, "inf": "aaa"};
+                    if (result["code"] == 200) {
+                      print("loginpage:" + result.toString());
+                      fuToast("欢迎您，${result["inf"]}，登陆成功！", Colors.green[400],
+                          context);
+                      Timer(
+                          Duration(seconds: 3),
+                          () => {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => BottomBar()),
+                                    (route) => route == null)
+                              });
+                    } else if (result["code"] == 403) {
+                      fuToast("登陆失败。。用户名或密码错误！", Colors.red[400], context);
+                    } else {
+                      fuToast("抱歉，服务器错误，请稍后重试", Colors.red[400], context);
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width - 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF69f0ae),
+                              Color(0xFF00c853),
+                            ],
+                            begin: FractionalOffset(0, 1),
+                            end: FractionalOffset(1, 0))),
+                    child: Center(
+                      child: Text(
+                        "登  录  LOGIN ",
+                        style: TextStyle(
+                          fontFamily: "Product Sans",
+                          color: Color(0x99000000),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
@@ -141,21 +197,33 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width-100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(colors: [Color(0xffffff00), Color(0xFFffd600),], begin: FractionalOffset(0, 1), end: FractionalOffset(1, 0))
-                  ),
-                  child: Center(
-                    child: Text(
-                      "取  消  CANCEL",
-                      style: TextStyle(
-                        fontFamily: "Product Sans",
-                        color: Color(0x99000000),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => BottomBar()),
+                        (route) => route == null);
+                  },
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width - 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xffffff00),
+                              Color(0xFFffd600),
+                            ],
+                            begin: FractionalOffset(0, 1),
+                            end: FractionalOffset(1, 0))),
+                    child: Center(
+                      child: Text(
+                        "取  消  CANCEL",
+                        style: TextStyle(
+                          fontFamily: "Product Sans",
+                          color: Color(0x99000000),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
