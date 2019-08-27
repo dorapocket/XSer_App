@@ -4,6 +4,10 @@
 
 ## 概览 Overview
 
+**我们很抱歉地说。学校官方不是很支持此App的运行，鉴于已有某智慧教育app存在类似功能，项目无限期延迟**
+
+**That's ok! && Practice makes Perfect!**
+
 一款由两位中国浙江省宁波市效实中学2018级毕业生兴趣制作的效实人专用跨平台App！
 
 A cross-platform App created by two 2018 graduates from Ningbo XiaoShi High School, Zhejiang , China.
