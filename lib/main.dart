@@ -46,7 +46,7 @@ final JPush jpush = new JPush();
     });
 
     jpush.setup(
-      appKey: "12936766317124f4784254a8",
+      appKey: "/*your app keys*/",
       channel: "theChannel",
       production: false,
       debug: true,
